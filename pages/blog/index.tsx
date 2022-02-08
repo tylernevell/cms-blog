@@ -1,13 +1,13 @@
-import React from 'react'
-import { Pane, majorScale } from 'evergreen-ui'
-import matter from 'gray-matter'
-import path from 'path'
-import fs from 'fs'
-import orderby from 'lodash.orderby'
-import Container from '../../components/container'
-import HomeNav from '../../components/homeNav'
-import PostPreview from '../../components/postPreview'
-import { posts as postsFromCMS } from '../../content'
+import React from 'react';
+import { Pane, majorScale } from 'evergreen-ui';
+import matter from 'gray-matter';
+import path from 'path';
+import fs from 'fs';
+import orderby from 'lodash';
+import Container from '../../components/container';
+import HomeNav from '../../components/homeNav';
+import PostPreview from '../../components/postPreview';
+import { posts as postsFromCMS } from '../../content';
 
 const Blog = ({ posts }) => {
   return (
@@ -25,14 +25,37 @@ const Blog = ({ posts }) => {
         </Container>
       </main>
     </Pane>
-  )
-}
+  );
+};
 
 Blog.defaultProps = {
   posts: [],
+};
+
+export function getStaticProps() {
+  // turn into JSON
+  const cmsPosts = postsFromCMS.published.map((post) => {
+    const { data } = matter(post);
+    return data;
+  });
+
+  const filenames = fs.readdirSync(path.join(process.cwd(), 'posts'));
+
+  const filePosts = filenames.map((name) => {
+    const fullPath = path.join(process.cwd(), 'posts', name);
+    const file = fs.readFileSync(fullPath, 'utf-8');
+    const { data } = matter(file);
+    return data;
+  });
+
+  const posts = [...cmsPosts, ...filePosts];
+
+  return {
+    props: { posts },
+  };
 }
 
-export default Blog
+export default Blog;
 
 /**
  * Need to get the posts from the
