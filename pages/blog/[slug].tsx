@@ -1,10 +1,10 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { majorScale, Pane, Heading, Spinner } from 'evergreen-ui';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { Post } from '../../types';
 import Container from '../../components/container';
-import HomeNav from '../../components/homeNav';
+import HomeNav from '../../components/home-nav';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
 import fs from 'fs';

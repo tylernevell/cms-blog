@@ -5,8 +5,8 @@ import path from 'path';
 import fs from 'fs';
 import orderby from 'lodash';
 import Container from '../../components/container';
-import HomeNav from '../../components/homeNav';
-import PostPreview from '../../components/postPreview';
+import HomeNav from '../../components/home-nav';
+import PostPreview from '../../components/post-preview';
 import { posts as postsFromCMS } from '../../content';
 
 const Blog = ({ posts }) => {

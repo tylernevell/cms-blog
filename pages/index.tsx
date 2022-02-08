@@ -1,10 +1,10 @@
-import React, { FC } from 'react'
-import { Pane, majorScale } from 'evergreen-ui'
-import Container from '../components/container'
-import Hero from '../components/hero'
-import HomeNav from '../components/homeNav'
-import FeatureSection from '../components/featureSection'
-import { home } from '../content'
+import { FC } from 'react';
+import { Pane, majorScale } from 'evergreen-ui';
+import Container from '../components/container';
+import Hero from '../components/hero';
+import HomeNav from '../components/home-nav';
+import FeatureSection from '../components/feature-section';
+import { home } from '../content';
 
 const Home: FC<{ content: { hero: any; features: any[] } }> = ({ content }) => {
   return (
@@ -32,8 +32,8 @@ const Home: FC<{ content: { hero: any; features: any[] } }> = ({ content }) => {
         </Pane>
       </footer>
     </Pane>
-  )
-}
+  );
+};
 
 /**
  * Should really get this content from our CMS
@@ -44,14 +44,14 @@ Home.defaultProps = {
     features: [{ title: 'default feature', body: 'default body' }],
     hero: { title: 'default title', body: 'default body' },
   },
-}
+};
 
 export function getStaticProps() {
   return {
     props: {
       content: home.published,
     },
-  }
+  };
 }
 
-export default Home
+export default Home;

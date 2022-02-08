@@ -1,10 +1,9 @@
-import React from 'react'
-import { Pane, Card } from 'evergreen-ui'
-import GithubIcon from './githubIcon'
+import { Pane, Card } from 'evergreen-ui';
+import GithubIcon from './github-icon';
 
-const icons = { github: GithubIcon }
+const icons = { github: GithubIcon };
 const SocialButton = ({ type, onClick }) => {
-  const Icon = icons[type] || GithubIcon
+  const Icon = icons[type] || GithubIcon;
 
   return (
     <Card
@@ -21,7 +20,12 @@ const SocialButton = ({ type, onClick }) => {
       color={type === 'Google' ? 'black' : 'white'}
       onClick={onClick}
     >
-      <Pane display="flex" justifyContent="space-evenly" alignItems="center" fontSize="20px">
+      <Pane
+        display="flex"
+        justifyContent="space-evenly"
+        alignItems="center"
+        fontSize="20px"
+      >
         <Icon />
         <span style={{ fontSize: '1.2rem' }}>
           {'Continue with '}
@@ -29,7 +33,7 @@ const SocialButton = ({ type, onClick }) => {
         </span>
       </Pane>
     </Card>
-  )
-}
+  );
+};
 
-export default SocialButton
+export default SocialButton;
