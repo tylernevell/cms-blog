@@ -1,9 +1,7 @@
-import React from 'react';
 import { Pane, majorScale } from 'evergreen-ui';
 import matter from 'gray-matter';
 import path from 'path';
 import fs from 'fs';
-import orderby from 'lodash';
 import Container from '../../components/container';
 import HomeNav from '../../components/home-nav';
 import PostPreview from '../../components/post-preview';
@@ -32,9 +30,11 @@ Blog.defaultProps = {
   posts: [],
 };
 
-export function getStaticProps() {
+export function getStaticProps(ctx) {
   // turn into JSON
-  const cmsPosts = postsFromCMS.published.map((post) => {
+  const cmsPosts = (
+    ctx.preview ? postsFromCMS.draft : postsFromCMS.published
+  ).map((post) => {
     const { data } = matter(post);
     return data;
   });

@@ -77,14 +77,14 @@ export function getStaticPaths() {
  * then the the correct post for the matching path
  * Posts can come from the fs or our CMS
  */
-export async function getStaticProps({ params }) {
+export async function getStaticProps({ params, preview }) {
   let post;
   try {
     const filesPath = path.join(process.cwd(), 'posts', params.slug + '.mdx');
     post = fs.readFileSync(filesPath, 'utf-8');
   } catch {
     console.log('should match with', params.slug);
-    const cmsPosts = posts.published.map((p) => {
+    const cmsPosts = (preview ? posts.draft : posts.published).map((p) => {
       return matter(p);
     });
 

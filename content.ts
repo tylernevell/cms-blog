@@ -11,20 +11,25 @@ export const home = {
   },
   published: {
     hero: {
-      title: 'A beautiful knowledge base for your whole team.',
-      body: 'High performing teams use Known to document and record everything. Some other cool SaaS tag line here.',
+      title: "Documenting the privilege of living America's Pizza Capital",
+      body: 'If I gotta move to NYC, I might as well make the best of it by exploring all the best pizza shops this city has to offer. Come join me as I try best of the best of my favorite food!',
     },
     features: [
       {
         title: 'Next gen editor',
-        body:
-          'Forget about markdown and rich text. Our editor is superchared to handle any content you can throug at it.',
+        body: 'Forget about markdown and rich text. Our editor is superchared to handle any content you can throug at it.',
       },
-      { title: 'Stay organized', body: 'Use folders to put your docs right where you need them when you need them.' },
-      { title: 'Beautiful design', body: 'Award wining design that you will fall in love with.' },
+      {
+        title: 'Stay organized',
+        body: 'Use folders to put your docs right where you need them when you need them.',
+      },
+      {
+        title: 'Beautiful design',
+        body: 'Award wining design that you will fall in love with.',
+      },
     ],
   },
-}
+};
 
 export const posts = {
   draft: [
@@ -62,4 +67,4 @@ publsihedOn: '3-20-2020'
 ---
 ## Elon musk writes`,
   ],
-}
+};
