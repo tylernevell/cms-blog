@@ -5,10 +5,12 @@ import { useRouter } from 'next/router';
 import { Post } from '../../types';
 import Container from '../../components/container';
 import HomeNav from '../../components/homeNav';
-import { MDXRemote } from 'next-mdx-remote';
+import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
+import { serialize } from 'next-mdx-remote/serialize';
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
+import { posts } from '../../content';
 
 const BlogPost: FC<Post> = ({ source, frontMatter }) => {
   const router = useRouter();
@@ -48,6 +50,7 @@ const BlogPost: FC<Post> = ({ source, frontMatter }) => {
 };
 
 BlogPost.defaultProps = {
+  source: '' as unknown as MDXRemoteSerializeResult<Record<string, unknown>>,
   frontMatter: { title: 'default title', summary: 'summary', publishedOn: '' },
 };
 
@@ -62,9 +65,10 @@ export function getStaticPaths() {
 
   return {
     paths: slugs.map((s) => ({ params: { slug: s.slug } })),
-    // gives a 404 for bad slugs
+    // false gives a 404 for bad slugs
     // 'blocking' will wait forever until page is generated from the cms
-    fallback: false,
+    // true generates a page
+    fallback: true,
   };
 }
 
@@ -73,6 +77,29 @@ export function getStaticPaths() {
  * then the the correct post for the matching path
  * Posts can come from the fs or our CMS
  */
-export function getStaticProps() {}
+export async function getStaticProps({ params }) {
+  let post;
+  try {
+    const filesPath = path.join(process.cwd(), 'posts', params.slug + '.mdx');
+    post = fs.readFileSync(filesPath, 'utf-8');
+  } catch {
+    console.log('should match with', params.slug);
+    const cmsPosts = posts.published.map((p) => {
+      return matter(p);
+    });
+
+    const match = cmsPosts.find((p) => p.data.slug === params.slug);
+    post = match.content;
+  }
+  const { data } = matter(post);
+  const mdxSource = await serialize(post, { scope: data });
+
+  return {
+    props: {
+      source: mdxSource,
+      frontMatter: data,
+    },
+  };
+}
 
 export default BlogPost;
